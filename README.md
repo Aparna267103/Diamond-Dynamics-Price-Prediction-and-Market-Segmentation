@@ -1,446 +1,553 @@
-# Aerial Object Classification & Detection
+# 💎 Diamond Dynamics: Price Prediction and Market Segmentation
 
-A deep learning and computer vision project for **classifying aerial images as Bird or Drone**, with an optional **YOLOv8-based object detection** component for locating and labeling objects in real-world aerial scenes.
+> **Machine Learning | Regression | ANN | K-Means Clustering | PCA | Streamlit**
 
-The project is designed for applications such as **aerial surveillance, wildlife monitoring, airport safety, and security & defense**.
+Diamond Dynamics is a **Machine Learning and Data Analytics project** focused on predicting diamond prices and identifying meaningful market segments based on diamond characteristics.
+
+The project uses diamond attributes such as **carat, cut, color, clarity, and dimensions** to build regression models for price prediction and clustering models for market segmentation. An interactive **Streamlit web application** allows users to enter diamond details and receive both a predicted price and market segment.
+
+---
 
 ## 📌 Project Overview
 
-The primary goal is to build an AI-based solution capable of distinguishing between **birds and drones** from aerial images.
+The diamond market depends on several quality and physical attributes when determining prices. Accurately predicting diamond prices can support **pricing strategies, inventory management, product recommendations, and customer targeting**.
 
-The project includes:
+This project addresses two major problems:
 
-* Custom CNN-based image classification
-* Transfer learning using pretrained deep learning models
-* Data preprocessing and augmentation
-* Model training and evaluation
-* Optional YOLOv8 object detection
-* Streamlit-based deployment
-* Model comparison and performance analysis
+1. 💰 **Diamond Price Prediction** — Predict the price of a diamond using Machine Learning regression algorithms and an Artificial Neural Network.
+2. 🎯 **Market Segmentation** — Group diamonds into meaningful clusters based on their physical and qualitative characteristics.
+
+The final solution includes a trained ML pipeline and an interactive Streamlit application. 
+
+---
 
 ## 🎯 Objectives
 
-1. Classify aerial images into two categories:
+* Predict diamond prices using multiple regression algorithms.
+* Build an **Artificial Neural Network (ANN)** for price prediction.
+* Segment diamonds into meaningful market groups using clustering.
+* Identify the optimal number of clusters using methods such as the **Elbow Method** and **Silhouette Score**.
+* Apply feature engineering and feature selection to improve model performance.
+* Use **PCA** for dimensionality reduction and cluster visualization.
+* Develop an interactive **Streamlit application** for real-time predictions. 
 
-   * 🐦 Bird
-   * 🚁 Drone
-2. Develop a Custom CNN classification model.
-3. Apply transfer learning using pretrained architectures.
-4. Compare model performance using appropriate evaluation metrics.
-5. Optionally detect and localize birds and drones using YOLOv8.
-6. Deploy the final solution through an interactive Streamlit application.
+---
 
-## 💼 Real-World Applications
+## 📊 Dataset
 
-### 🦅 Wildlife Protection
+The project uses a **Diamond Dataset** containing:
 
-Detect birds near wind farms or airports to help prevent accidents.
+* **53,940 rows**
+* **10 features**
 
-### 🛡️ Security & Defense Surveillance
+### Dataset Features
 
-Identify drones entering restricted airspace and support timely alerts.
+| Feature   | Description                             |
+| --------- | --------------------------------------- |
+| `carat`   | Weight of the diamond in carats         |
+| `cut`     | Quality of the diamond cut              |
+| `color`   | Diamond color grade from D to J         |
+| `clarity` | Measurement of inclusions and blemishes |
+| `depth`   | Total depth percentage                  |
+| `table`   | Width of the diamond's top facet        |
+| `price`   | Diamond price in USD                    |
+| `x`       | Diamond length in mm                    |
+| `y`       | Diamond width in mm                     |
+| `z`       | Diamond depth/height in mm              |
 
-### ✈️ Airport Bird-Strike Prevention
+The original project specification indicates that the price is converted from **USD to INR** for the application. 
 
-Monitor runway areas for bird activity.
+---
 
-### 🌱 Environmental Research
-
-Track bird populations using aerial imagery while reducing misclassification.
-
-## 🧠 Technologies & Skills
-
-* Python
-* Deep Learning
-* Computer Vision
-* Image Classification
-* Object Detection
-* Convolutional Neural Networks (CNN)
-* TensorFlow / Keras or PyTorch
-* Transfer Learning
-* Data Preprocessing
-* Data Augmentation
-* YOLOv8
-* Model Evaluation
-* Streamlit
-
-## 📂 Dataset
-
-### Classification Dataset
-
-**Source:** `classification_dataset`
-
-**Task:** Binary image classification — Bird vs Drone
-
-**Data type:** RGB images
-**Format:** `.jpg`
-
-| Split      |  Bird | Drone | Total |
-| ---------- | ----: | ----: | ----: |
-| Train      | 1,414 | 1,248 | 2,662 |
-| Validation |   217 |   225 |   442 |
-| Test       |   121 |    94 |   215 |
-
-**Total images:** 3,319
-
-### Object Detection Dataset
-
-**Source:** `object_detection_Dataset`
-
-The object detection dataset contains **3,319 images** with corresponding YOLOv8-format `.txt` annotations.
-
-Each annotation follows:
+## 🔄 Machine Learning Workflow
 
 ```text
-<class_id> <x_center> <y_center> <width> <height>
+                ┌─────────────────────┐
+                │   Diamond Dataset   │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │ Data Preprocessing   │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │        EDA          │
+                │ Visualization       │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │ Feature Engineering │
+                │ & Feature Selection │
+                └──────────┬──────────┘
+                           │
+                ┌──────────┴──────────┐
+                ▼                     ▼
+       ┌─────────────────┐   ┌─────────────────┐
+       │ Price Prediction│   │    Clustering   │
+       │   Regression    │   │   Segmentation  │
+       └────────┬────────┘   └────────┬────────┘
+                │                     │
+                ▼                     ▼
+       ┌─────────────────┐   ┌─────────────────┐
+       │ Best ML / ANN   │   │ K-Means + PCA   │
+       │     Model       │   │                 │
+       └────────┬────────┘   └────────┬────────┘
+                │                     │
+                └──────────┬──────────┘
+                           ▼
+                ┌─────────────────────┐
+                │   Streamlit App     │
+                └─────────────────────┘
 ```
 
-Dataset split:
-
-* Train: 2,662 images
-* Validation: 442 images
-* Test: 215 images
-
-## 🔄 Project Workflow
-
-```text
-Dataset
-   │
-   ▼
-Data Understanding
-   │
-   ▼
-Data Preprocessing
-   │
-   ▼
-Data Augmentation
-   │
-   ├───────────────┐
-   ▼               ▼
-Custom CNN    Transfer Learning
-   │               │
-   └───────┬───────┘
-           ▼
-      Model Training
-           │
-           ▼
-      Model Evaluation
-           │
-           ▼
-     Model Comparison
-           │
-           ▼
-    Best Model Selection
-           │
-           ▼
-   Streamlit Deployment
-           │
-           ▼
- Optional YOLOv8 Detection
-```
-
-The documented workflow covers dataset inspection, preprocessing, augmentation, model building, training, evaluation, model comparison, and deployment.
+---
 
 ## 🧹 Data Preprocessing
 
-For classification:
+The preprocessing stage includes:
 
-* Inspect the dataset structure.
-* Check the number of images in each class.
-* Identify potential class imbalance.
-* Visualize sample images.
-* Resize images to **224 × 224**.
-* Normalize pixel values to the range **[0, 1]**.
+* Handling missing values.
+* Detecting invalid or zero values in `x`, `y`, and `z`.
+* Imputing or treating invalid values where necessary.
+* Removing irrelevant columns when appropriate.
+* Detecting and handling numerical outliers.
+* Checking skewness in numerical variables.
+* Applying transformations such as:
 
-For transfer learning:
+  * Log transformation
+  * Square-root transformation
+  * Box-Cox transformation
 
-* TensorFlow models use their model-specific `preprocess_input`.
-* PyTorch pretrained models use ImageNet normalization according to the model's training configuration.
+Outlier detection can use **IQR** or **Z-Score** methods, supported by visual inspection through boxplots. 
 
-## 🔀 Data Augmentation
+---
 
-The project applies image transformations such as:
+## 📈 Exploratory Data Analysis
 
-* Rotation
-* Flipping
-* Zoom
-* Brightness adjustment
-* Cropping
+The project performs EDA to understand relationships between diamond attributes and price.
 
-These transformations are intended to improve the model's ability to generalize to different aerial image conditions.
+### Visualizations
 
-## 🏗️ Model Architecture
+* Price distribution
+* Carat distribution
+* Dimension distributions
+* Count plots for `cut`, `color`, and `clarity`
+* Price vs. carat
+* Price variation by cut
+* Price variation by color
+* Price variation by clarity
+* Correlation heatmap
+* Scatterplot matrix
+* Pairwise relationships
+* Average price by category
 
-### Custom CNN
+These analyses help identify important patterns and relationships before model training. 
 
-The Custom CNN includes:
+---
 
-* Convolutional layers
-* Pooling layers
-* Batch normalization
-* Dropout
-* Dense output layer
+## ⚙️ Feature Engineering
 
-### Transfer Learning
+Additional features can be derived from the existing diamond attributes.
 
-The project can leverage pretrained architectures such as:
+### Engineered Features
 
-* ResNet50
-* MobileNet
-* EfficientNetB0
+```text
+Volume = x × y × z
 
-These models can be fine-tuned for the Bird vs Drone classification task.
+Price per Carat = price / carat
 
-## 🏋️ Model Training
+Dimension Ratio = (x + y) / (2 × z)
+```
 
-Both the Custom CNN and transfer-learning models are trained and compared.
+Diamonds can also be categorized by carat:
 
-Training includes:
+| Category | Carat Range |
+| -------- | ----------- |
+| Light    | `< 0.5`     |
+| Medium   | `0.5 – 1.5` |
+| Heavy    | `> 1.5`     |
 
-* EarlyStopping
-* ModelCheckpoint
-* Accuracy tracking
-* Precision
-* Recall
-* F1-score
+The project also specifies converting the original USD price into INR using a fixed or dynamic conversion rate. 
 
-## 📊 Model Evaluation
+---
 
-Model performance is evaluated using:
+## 🔍 Feature Selection
 
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* Confusion matrix
-* Classification report
-* Training/validation accuracy graphs
-* Training/validation loss graphs
+Feature selection can be performed using techniques such as:
 
-The models are compared based on **accuracy, training time, and generalization performance**. The best-performing model is selected for deployment.
+* Correlation Matrix Analysis
+* Feature Importance
+* Recursive Feature Elimination (RFE)
+* Variance Inflation Factor (VIF)
 
-> **Note:** The project document specifies the evaluation methodology but does not provide final trained-model performance results. Therefore, actual accuracy or other metric values should be added here after model training.
+The selected approach depends on the model and feature relationships. 
 
-## 🚁 Optional YOLOv8 Object Detection
+---
 
-The project optionally extends classification into object detection using **YOLOv8**.
+# 💰 Price Prediction
 
-### Workflow
+The regression component predicts the price of a diamond from its characteristics.
 
-1. Install YOLOv8.
-2. Prepare the YOLOv8-format dataset.
-3. Create the `data.yaml` configuration.
-4. Train the YOLOv8 model.
-5. Validate the model.
-6. Run inference on test or new images.
+### Models
 
-The detection model can provide bounding boxes around detected birds and drones.
+The project includes multiple regression algorithms, such as:
 
-## 🌐 Streamlit Deployment
+* Linear Regression
+* Decision Tree
+* Random Forest
+* XGBoost
+* K-Nearest Neighbors (KNN)
+* Artificial Neural Network (ANN)
 
-The final model can be deployed through an interactive Streamlit application.
+The dataset is divided into training and testing sets, with an **80:20 or 70:30 split**. 
 
-The application should allow users to:
+### Evaluation Metrics
 
-1. Upload an image.
-2. Run the trained classification model.
-3. Display the predicted class.
-4. Display the prediction confidence score.
-5. Optionally display YOLOv8 detection results with bounding boxes.
+Models are evaluated using:
+
+* **MAE** — Mean Absolute Error
+* **MSE** — Mean Squared Error
+* **RMSE** — Root Mean Squared Error
+* **R² Score** — Coefficient of Determination
+
+The best-performing model is saved as a `.pkl` file for deployment. 
+
+---
+
+# 🎯 Market Segmentation
+
+The clustering component groups diamonds into market segments based on relevant physical and qualitative characteristics.
+
+### Clustering Approach
+
+The project primarily uses:
+
+**K-Means Clustering**
+
+Other possible approaches include:
+
+* DBSCAN
+* Hierarchical Clustering
+
+The optimal number of clusters can be identified using:
+
+* Elbow Method
+* Silhouette Score
+
+Categorical variables such as `cut`, `color`, and `clarity` are encoded before clustering. 
+
+> **Note:** Price is excluded from the clustering model so that market segments are based on diamond characteristics rather than directly on price.
+
+---
+
+## 📊 PCA Visualization
+
+**Principal Component Analysis (PCA)** can be applied to reduce the feature space to two or three principal components.
+
+This makes it possible to visualize the resulting clusters using 2D or 3D scatter plots. 
+
+---
+
+# 🏷️ Cluster Naming
+
+After clustering, each cluster can be analyzed based on characteristics such as:
+
+* Average carat
+* Average price
+* Cut distribution
+* Other diamond characteristics
+
+Example segment names include:
+
+| Segment                        | Description                            |
+| ------------------------------ | -------------------------------------- |
+| 💎 Premium Heavy Diamonds      | Large, expensive, premium-grade stones |
+| 💠 Affordable Small Diamonds   | Small, budget-friendly stones          |
+| 🔷 Mid-range Balanced Diamonds | Balanced size and cost                 |
+
+These names are examples from the project specification and should be adjusted according to the actual cluster characteristics obtained from the trained model. 
+
+---
+
+# 🖥️ Streamlit Application
+
+The project includes an interactive **Streamlit web application**.
+
+## 💰 Price Prediction Module
+
+Users can provide:
+
+* Carat
+* Cut
+* Color
+* Clarity
+* X dimension
+* Y dimension
+* Z dimension
+
+The application then predicts the diamond price in **INR**. 
+
+---
+
+## 🎯 Market Segment Prediction
+
+The same diamond attributes can be used to identify the diamond's market segment.
+
+The application displays:
+
+```text
+Cluster Number
+        ↓
+Cluster Name
+        ↓
+Market Segment
+```
 
 Example:
 
 ```text
-Upload Image
-     │
-     ▼
-AI Model
-     │
-     ├── Bird → Confidence: XX%
-     │
-     └── Drone → Confidence: XX%
-
-Optional:
-YOLOv8 → Bounding Boxes + Labels
+Cluster: 2
+Segment: Premium Heavy Diamonds
 ```
 
-## 📁 Suggested Repository Structure
+The cluster name is mapped from the characteristics of the trained clusters. 
+
+---
+
+# 🛠️ Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* TensorFlow / Keras
+* XGBoost
+* Matplotlib
+* Seaborn
+* Streamlit
+* Pickle
+* PCA
+* K-Means Clustering
+
+### Key Concepts
 
 ```text
-Aerial-Object-Classification-Detection/
+Machine Learning
+Regression
+Artificial Neural Networks
+Feature Engineering
+Feature Selection
+EDA
+Outlier Detection
+Skewness Treatment
+K-Means Clustering
+PCA
+Model Evaluation
+Streamlit Deployment
+```
+
+These technologies and concepts are aligned with the technical tags in the project specification. 
+
+---
+
+# 📁 Suggested Project Structure
+
+```text
+Diamond-Dynamics/
 │
-├── README.md
-├── requirements.txt
+├── 📂 data/
+│   └── diamonds.csv
 │
-├── data/
-│   ├── classification_dataset/
-│   │   ├── train/
-│   │   │   ├── bird/
-│   │   │   └── drone/
-│   │   ├── valid/
-│   │   │   ├── bird/
-│   │   │   └── drone/
-│   │   └── test/
-│   │       ├── bird/
-│   │       └── drone/
-│   │
-│   └── object_detection_Dataset/
+├── 📂 notebooks/
+│   └── diamond_dynamics.ipynb
 │
-├── notebooks/
-│   ├── data_preprocessing.ipynb
-│   ├── custom_cnn.ipynb
-│   ├── transfer_learning.ipynb
-│   └── yolov8_detection.ipynb
+├── 📂 models/
+│   ├── regression_model.pkl
+│   ├── clustering_model.pkl
+│   └── preprocessing.pkl
 │
-├── src/
-│   ├── preprocessing.py
-│   ├── train.py
-│   ├── evaluate.py
-│   └── predict.py
-│
-├── models/
-│   ├── custom_cnn/
-│   ├── transfer_learning/
-│   └── yolov8/
-│
-├── app/
+├── 📂 app/
 │   └── app.py
 │
-└── results/
-    ├── confusion_matrix/
-    ├── training_plots/
-    └── model_comparison/
+├── 📂 images/
+│   ├── eda.png
+│   ├── correlation.png
+│   ├── clusters.png
+│   └── streamlit_app.png
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 
-*This repository structure is a suggested organization for implementing the deliverables described in the project document; it is not a directory structure specified in the source document.*
+> Update the filenames and folders to match your actual GitHub repository structure.
 
-## 📦 Project Deliverables
+---
 
-The expected deliverables include:
+# 🚀 How to Run the Project
 
-* Trained Custom CNN model
-* Trained transfer-learning model
-* YOLOv8 model *(optional)*
-* Streamlit classification/detection application
-* Preprocessing, training, and evaluation scripts/notebooks
-* Model comparison report
-* GitHub repository with documentation
-* Well-structured and commented code
-
-## 🏷️ Technical Tags
-
-`Computer Vision` · `Deep Learning` · `Image Classification` · `Object Detection` · `CNN` · `YOLOv8` · `Transfer Learning` · `Data Augmentation` · `Model Evaluation` · `Streamlit` · `Aerial Surveillance AI`
-
-## 🚀 Getting Started
-
-### 1. Clone the Repository
+## 1. Clone the Repository
 
 ```bash
-git clone <your-github-repository-url>
-cd Aerial-Object-Classification-Detection
+git clone https://github.com/<your-username>/Diamond-Dynamics.git
+cd Diamond-Dynamics
 ```
 
-### 2. Create a Virtual Environment
+## 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate it:
-
-**Windows**
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-**Linux / macOS**
+### macOS / Linux
 
 ```bash
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Prepare the Dataset
-
-Place the classification dataset and, if implementing object detection, the YOLOv8 dataset in the appropriate data directories.
-
-### 5. Train the Model
-
-Run the appropriate training notebook or script for:
-
-* Custom CNN
-* Transfer Learning
-* YOLOv8 *(optional)*
-
-### 6. Evaluate the Model
-
-Generate:
-
-* Classification report
-* Confusion matrix
-* Accuracy/loss plots
-* Model comparison results
-
-### 7. Run the Streamlit Application
+## 4. Run the Streamlit Application
 
 ```bash
-streamlit run app/app.py
+streamlit run app.py
 ```
 
-> The exact commands and filenames depend on the implementation of the repository and are not specified in the project document.
-
-## 📈 Results
-
-### Classification Results
-
-| Model          | Accuracy | Precision | Recall | F1-Score | Training Time |
-| -------------- | -------: | --------: | -----: | -------: | ------------: |
-| Custom CNN     |      TBD |       TBD |    TBD |      TBD |           TBD |
-| ResNet50       |      TBD |       TBD |    TBD |      TBD |           TBD |
-| MobileNet      |      TBD |       TBD |    TBD |      TBD |           TBD |
-| EfficientNetB0 |      TBD |       TBD |    TBD |      TBD |           TBD |
-
-### Object Detection Results
-
-| Model  | mAP | Precision | Recall |
-| ------ | --: | --------: | -----: |
-| YOLOv8 | TBD |       TBD |    TBD |
-
-**Replace the `TBD` values with the actual results obtained during training and evaluation.**
-
-## 🔮 Future Scope
-
-Potential extensions based on the project's classification/detection direction include:
-
-* Real-time aerial video analysis
-* Automated drone alerts
-* Improved object localization
-* Deployment on edge devices
-* Integration with surveillance systems
-* Expansion to additional aerial object classes
-
-These are possible extensions rather than documented project requirements.
-
-## ⏱️ Timeline
-
-The project document specifies a completion timeline of **10 days from the date of assignment**.
-
-## 👥 Project Credits
-
-**Created by:** Nilofer Mubeen
-**Verified by:** Shadiya Nehlath
-**Approved by:** Harmain
-
-## 📄 Project Reference
-
-This README is based on the provided project specification for **Aerial Object Classification & Detection**.
+The application will open in your browser.
 
 ---
 
-⭐ If this project is useful, consider giving the repository a star!
+# 📦 Model Deployment
+
+The trained regression and clustering models can be serialized using Pickle:
+
+```text
+regression_model.pkl
+clustering_model.pkl
+```
+
+These models are loaded by the Streamlit application to generate predictions without retraining the models every time the application runs. The project specification explicitly includes saving the best regression and clustering models as `.pkl` files for Streamlit use. 
+
+---
+
+# 🌍 Real-World Applications
+
+Diamond Dynamics can support several real-world use cases:
+
+### 💰 Dynamic Pricing
+
+Retailers can estimate appropriate diamond prices based on quality and physical characteristics.
+
+### 📦 Inventory Management
+
+Diamonds can be grouped into meaningful categories for easier inventory organization.
+
+### 🛍️ Product Recommendations
+
+Diamond profiles can be used to build recommendation systems for customers.
+
+### 🎯 Personalized Marketing
+
+Market segments can support targeted marketing strategies and customer personalization. 
+
+---
+
+# 📊 Project Deliverables
+
+The project deliverables include:
+
+* Python/Jupyter Notebook
+* Data preprocessing pipeline
+* EDA visualizations
+* Feature engineering
+* Feature selection
+* Multiple regression models
+* ANN regression model
+* Regression evaluation metrics
+* K-Means clustering model
+* Cluster evaluation
+* PCA visualization
+* Saved `.pkl` models
+* Streamlit web application
+* Interactive price prediction
+* Interactive market segmentation
+
+
+
+---
+
+# 📈 Future Enhancements
+
+Possible improvements include:
+
+* Deploying the Streamlit application online.
+* Adding more advanced regression models.
+* Improving ANN architecture and hyperparameter tuning.
+* Adding automated model comparison.
+* Adding interactive cluster visualizations.
+* Adding customer-oriented diamond recommendations.
+* Adding dynamic currency conversion.
+* Implementing model monitoring and retraining pipelines.
+
+---
+
+# 👨‍💻 Skills Demonstrated
+
+Through this project, the following skills are demonstrated:
+
+* Data Cleaning & Preprocessing
+* Exploratory Data Analysis
+* Data Visualization
+* Feature Engineering
+* Feature Selection
+* Outlier Detection
+* Skewness Handling
+* Regression
+* Artificial Neural Networks
+* K-Means Clustering
+* PCA
+* Model Evaluation
+* Streamlit Application Development
+* Machine Learning Model Deployment
+
+
+
+---
+
+# ⭐ Project Highlights
+
+```text
+💎 53,940 Diamond Records
+💰 Price Prediction
+🤖 Multiple ML Regression Models
+🧠 Artificial Neural Network
+🎯 K-Means Market Segmentation
+📊 PCA Visualization
+📈 Comprehensive EDA
+⚙️ Feature Engineering
+🖥️ Interactive Streamlit UI
+📦 Pickle Model Deployment
+```
+
+---
+
+## 📌 Conclusion
+
+**Diamond Dynamics** combines supervised and unsupervised Machine Learning to create a practical analytics solution for the diamond market.
+
+The project demonstrates how diamond characteristics can be transformed into actionable insights through **price prediction, market segmentation, data visualization, and interactive deployment**.
+
+> 💎 **Predict the Price. Understand the Segment. Discover the Dynamics.**
