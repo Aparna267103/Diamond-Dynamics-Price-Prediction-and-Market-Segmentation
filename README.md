@@ -1,323 +1,446 @@
-# 🌲 EcoType: Forest Cover Type Prediction using Machine Learning
+# Aerial Object Classification & Detection
 
-An end-to-end Machine Learning project that predicts the **Forest Cover Type** based on cartographic and environmental features such as elevation, slope, soil type, hillshade values, hydrology distance, and wilderness area information.
+A deep learning and computer vision project for **classifying aerial images as Bird or Drone**, with an optional **YOLOv8-based object detection** component for locating and labeling objects in real-world aerial scenes.
 
-The project demonstrates the complete Machine Learning workflow from **data preprocessing and feature engineering** to **model training, evaluation, hyperparameter tuning, and deployment using Streamlit**.
-
----
+The project is designed for applications such as **aerial surveillance, wildlife monitoring, airport safety, and security & defense**.
 
 ## 📌 Project Overview
 
-Forest cover classification plays a vital role in environmental monitoring, forest conservation, wildfire risk assessment, and land resource management.
-
-This project builds multiple classification models to accurately predict the forest cover type using geographical and environmental attributes.
-
----
-
-## 🎯 Objectives
-
-- Predict forest cover type using supervised Machine Learning
-- Perform comprehensive Exploratory Data Analysis (EDA)
-- Clean and preprocess real-world environmental data
-- Handle class imbalance using SMOTE
-- Compare multiple Machine Learning algorithms
-- Optimize the best-performing model
-- Deploy the model with Streamlit
-
----
-
-## 🌍 Real-World Applications
-
-- 🌳 Forest Resource Management
-- 🔥 Wildfire Risk Assessment
-- 🛰️ Land Cover Mapping
-- 🌱 Environmental Monitoring
-- 📊 Geospatial Data Analysis
-
----
-
-# 📊 Dataset
-
-**Dataset:** Forest Cover Type Dataset
-
-- Rows: **145,891**
-- Columns: **13**
-- Target Variable: **Cover_Type**
-- Number of Classes: **7**
-
-### Dataset Source
-
-UCI Machine Learning Repository
-
-https://archive.ics.uci.edu/dataset/31/covertype
-
----
-
-# 📁 Features
-
-- Elevation
-- Aspect
-- Slope
-- Horizontal Distance to Hydrology
-- Vertical Distance to Hydrology
-- Horizontal Distance to Roadways
-- Hillshade (9 AM)
-- Hillshade (Noon)
-- Hillshade (3 PM)
-- Horizontal Distance to Fire Points
-- Wilderness Area
-- Soil Type
-
-Target:
-
-**Cover_Type**
-
----
-
-# ⚙️ Project Workflow
-
-```
-Data Collection
-        ↓
-Data Cleaning
-        ↓
-Exploratory Data Analysis
-        ↓
-Feature Engineering
-        ↓
-Class Balancing (SMOTE)
-        ↓
-Model Training
-        ↓
-Hyperparameter Tuning
-        ↓
-Model Evaluation
-        ↓
-Model Saving
-        ↓
-Streamlit Deployment
-```
-
----
-
-# 🧹 Data Preprocessing
-
-✔ Missing Value Handling
-
-✔ Duplicate Removal
-
-✔ Outlier Detection (IQR)
-
-✔ Skewness Treatment (log1p)
-
-✔ Feature Engineering
-
-- Hydrology_Distance
-- Hillshade_Mean
-
-✔ Label Encoding
-
-✔ Feature Scaling (if required)
-
----
-
-# 📈 Exploratory Data Analysis
+The primary goal is to build an AI-based solution capable of distinguishing between **birds and drones** from aerial images.
 
 The project includes:
 
-- Missing Value Analysis
-- Duplicate Analysis
-- Histograms
-- Boxplots
-- Correlation Heatmap
-- Scatterplots
-- Pairplots
-- Class Distribution
-- Feature Importance
-- Distribution Analysis
+* Custom CNN-based image classification
+* Transfer learning using pretrained deep learning models
+* Data preprocessing and augmentation
+* Model training and evaluation
+* Optional YOLOv8 object detection
+* Streamlit-based deployment
+* Model comparison and performance analysis
 
----
+## 🎯 Objectives
 
-# ⚖️ Handling Class Imbalance
+1. Classify aerial images into two categories:
 
-The training dataset was balanced using
+   * 🐦 Bird
+   * 🚁 Drone
+2. Develop a Custom CNN classification model.
+3. Apply transfer learning using pretrained architectures.
+4. Compare model performance using appropriate evaluation metrics.
+5. Optionally detect and localize birds and drones using YOLOv8.
+6. Deploy the final solution through an interactive Streamlit application.
 
-**SMOTE (Synthetic Minority Oversampling Technique)**
+## 💼 Real-World Applications
 
-This significantly improved model performance across minority classes.
+### 🦅 Wildlife Protection
 
----
+Detect birds near wind farms or airports to help prevent accidents.
 
-# 🤖 Machine Learning Models
+### 🛡️ Security & Defense Surveillance
 
-The following models were trained and compared:
+Identify drones entering restricted airspace and support timely alerts.
 
-- Random Forest Classifier
-- Decision Tree Classifier
-- Logistic Regression
-- K-Nearest Neighbors (KNN)
-- XGBoost Classifier
+### ✈️ Airport Bird-Strike Prevention
 
----
+Monitor runway areas for bird activity.
 
-# 📊 Model Evaluation
+### 🌱 Environmental Research
 
-Evaluation Metrics:
+Track bird populations using aerial imagery while reducing misclassification.
 
-- Accuracy Score
-- Confusion Matrix
-- Classification Report
-- Precision
-- Recall
-- F1 Score
+## 🧠 Technologies & Skills
 
----
+* Python
+* Deep Learning
+* Computer Vision
+* Image Classification
+* Object Detection
+* Convolutional Neural Networks (CNN)
+* TensorFlow / Keras or PyTorch
+* Transfer Learning
+* Data Preprocessing
+* Data Augmentation
+* YOLOv8
+* Model Evaluation
+* Streamlit
 
-# 🔧 Hyperparameter Tuning
+## 📂 Dataset
 
-The best-performing model was optimized using
+### Classification Dataset
 
-**GridSearchCV**
+**Source:** `classification_dataset`
 
-to improve prediction accuracy and generalization.
+**Task:** Binary image classification — Bird vs Drone
 
----
+**Data type:** RGB images
+**Format:** `.jpg`
 
-# 💾 Saved Files
+| Split      |  Bird | Drone | Total |
+| ---------- | ----: | ----: | ----: |
+| Train      | 1,414 | 1,248 | 2,662 |
+| Validation |   217 |   225 |   442 |
+| Test       |   121 |    94 |   215 |
 
-```
-forest_model.pkl
-label_encoder.pkl
-```
+**Total images:** 3,319
 
----
+### Object Detection Dataset
 
-# 🌐 Streamlit Web Application
+**Source:** `object_detection_Dataset`
 
-The Streamlit application allows users to
+The object detection dataset contains **3,319 images** with corresponding YOLOv8-format `.txt` annotations.
 
-- Enter environmental feature values
-- Predict forest cover type instantly
-- Display prediction results interactively
+Each annotation follows:
 
----
-
-# 🛠 Technologies Used
-
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- XGBoost
-- Imbalanced-learn (SMOTE)
-- Streamlit
-- Joblib
-
----
-
-# 📂 Project Structure
-
-```
-EcoType_Project/
-
-│── app.py
-│── train.py
-│── EDA.py
-│── forest_model.pkl
-│── label_encoder.pkl
-│── requirements.txt
-│── README.md
+```text
+<class_id> <x_center> <y_center> <width> <height>
 ```
 
----
+Dataset split:
 
-# 🚀 Installation
+* Train: 2,662 images
+* Validation: 442 images
+* Test: 215 images
 
-## Clone Repository
+## 🔄 Project Workflow
+
+```text
+Dataset
+   │
+   ▼
+Data Understanding
+   │
+   ▼
+Data Preprocessing
+   │
+   ▼
+Data Augmentation
+   │
+   ├───────────────┐
+   ▼               ▼
+Custom CNN    Transfer Learning
+   │               │
+   └───────┬───────┘
+           ▼
+      Model Training
+           │
+           ▼
+      Model Evaluation
+           │
+           ▼
+     Model Comparison
+           │
+           ▼
+    Best Model Selection
+           │
+           ▼
+   Streamlit Deployment
+           │
+           ▼
+ Optional YOLOv8 Detection
+```
+
+The documented workflow covers dataset inspection, preprocessing, augmentation, model building, training, evaluation, model comparison, and deployment.
+
+## 🧹 Data Preprocessing
+
+For classification:
+
+* Inspect the dataset structure.
+* Check the number of images in each class.
+* Identify potential class imbalance.
+* Visualize sample images.
+* Resize images to **224 × 224**.
+* Normalize pixel values to the range **[0, 1]**.
+
+For transfer learning:
+
+* TensorFlow models use their model-specific `preprocess_input`.
+* PyTorch pretrained models use ImageNet normalization according to the model's training configuration.
+
+## 🔀 Data Augmentation
+
+The project applies image transformations such as:
+
+* Rotation
+* Flipping
+* Zoom
+* Brightness adjustment
+* Cropping
+
+These transformations are intended to improve the model's ability to generalize to different aerial image conditions.
+
+## 🏗️ Model Architecture
+
+### Custom CNN
+
+The Custom CNN includes:
+
+* Convolutional layers
+* Pooling layers
+* Batch normalization
+* Dropout
+* Dense output layer
+
+### Transfer Learning
+
+The project can leverage pretrained architectures such as:
+
+* ResNet50
+* MobileNet
+* EfficientNetB0
+
+These models can be fine-tuned for the Bird vs Drone classification task.
+
+## 🏋️ Model Training
+
+Both the Custom CNN and transfer-learning models are trained and compared.
+
+Training includes:
+
+* EarlyStopping
+* ModelCheckpoint
+* Accuracy tracking
+* Precision
+* Recall
+* F1-score
+
+## 📊 Model Evaluation
+
+Model performance is evaluated using:
+
+* Accuracy
+* Precision
+* Recall
+* F1-score
+* Confusion matrix
+* Classification report
+* Training/validation accuracy graphs
+* Training/validation loss graphs
+
+The models are compared based on **accuracy, training time, and generalization performance**. The best-performing model is selected for deployment.
+
+> **Note:** The project document specifies the evaluation methodology but does not provide final trained-model performance results. Therefore, actual accuracy or other metric values should be added here after model training.
+
+## 🚁 Optional YOLOv8 Object Detection
+
+The project optionally extends classification into object detection using **YOLOv8**.
+
+### Workflow
+
+1. Install YOLOv8.
+2. Prepare the YOLOv8-format dataset.
+3. Create the `data.yaml` configuration.
+4. Train the YOLOv8 model.
+5. Validate the model.
+6. Run inference on test or new images.
+
+The detection model can provide bounding boxes around detected birds and drones.
+
+## 🌐 Streamlit Deployment
+
+The final model can be deployed through an interactive Streamlit application.
+
+The application should allow users to:
+
+1. Upload an image.
+2. Run the trained classification model.
+3. Display the predicted class.
+4. Display the prediction confidence score.
+5. Optionally display YOLOv8 detection results with bounding boxes.
+
+Example:
+
+```text
+Upload Image
+     │
+     ▼
+AI Model
+     │
+     ├── Bird → Confidence: XX%
+     │
+     └── Drone → Confidence: XX%
+
+Optional:
+YOLOv8 → Bounding Boxes + Labels
+```
+
+## 📁 Suggested Repository Structure
+
+```text
+Aerial-Object-Classification-Detection/
+│
+├── README.md
+├── requirements.txt
+│
+├── data/
+│   ├── classification_dataset/
+│   │   ├── train/
+│   │   │   ├── bird/
+│   │   │   └── drone/
+│   │   ├── valid/
+│   │   │   ├── bird/
+│   │   │   └── drone/
+│   │   └── test/
+│   │       ├── bird/
+│   │       └── drone/
+│   │
+│   └── object_detection_Dataset/
+│
+├── notebooks/
+│   ├── data_preprocessing.ipynb
+│   ├── custom_cnn.ipynb
+│   ├── transfer_learning.ipynb
+│   └── yolov8_detection.ipynb
+│
+├── src/
+│   ├── preprocessing.py
+│   ├── train.py
+│   ├── evaluate.py
+│   └── predict.py
+│
+├── models/
+│   ├── custom_cnn/
+│   ├── transfer_learning/
+│   └── yolov8/
+│
+├── app/
+│   └── app.py
+│
+└── results/
+    ├── confusion_matrix/
+    ├── training_plots/
+    └── model_comparison/
+```
+
+*This repository structure is a suggested organization for implementing the deliverables described in the project document; it is not a directory structure specified in the source document.*
+
+## 📦 Project Deliverables
+
+The expected deliverables include:
+
+* Trained Custom CNN model
+* Trained transfer-learning model
+* YOLOv8 model *(optional)*
+* Streamlit classification/detection application
+* Preprocessing, training, and evaluation scripts/notebooks
+* Model comparison report
+* GitHub repository with documentation
+* Well-structured and commented code
+
+## 🏷️ Technical Tags
+
+`Computer Vision` · `Deep Learning` · `Image Classification` · `Object Detection` · `CNN` · `YOLOv8` · `Transfer Learning` · `Data Augmentation` · `Model Evaluation` · `Streamlit` · `Aerial Surveillance AI`
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/EcoType_Project.git
-
-cd EcoType_Project
+git clone <your-github-repository-url>
+cd Aerial-Object-Classification-Detection
 ```
 
----
+### 2. Create a Virtual Environment
 
-## Install Dependencies
+```bash
+python -m venv venv
+```
+
+Activate it:
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+**Linux / macOS**
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+### 4. Prepare the Dataset
 
-## Download Dataset
+Place the classification dataset and, if implementing object detection, the YOLOv8 dataset in the appropriate data directories.
 
-Download the dataset from
+### 5. Train the Model
 
-https://archive.ics.uci.edu/dataset/31/covertype
+Run the appropriate training notebook or script for:
 
-Place the dataset inside the project folder.
+* Custom CNN
+* Transfer Learning
+* YOLOv8 *(optional)*
 
----
+### 6. Evaluate the Model
 
-## Run EDA
+Generate:
 
-```bash
-python EDA.py
-```
+* Classification report
+* Confusion matrix
+* Accuracy/loss plots
+* Model comparison results
 
----
-
-## Train Model
-
-```bash
-python train.py
-```
-
----
-
-## Run Streamlit App
+### 7. Run the Streamlit Application
 
 ```bash
-streamlit run app.py
+streamlit run app/app.py
 ```
 
+> The exact commands and filenames depend on the implementation of the repository and are not specified in the project document.
+
+## 📈 Results
+
+### Classification Results
+
+| Model          | Accuracy | Precision | Recall | F1-Score | Training Time |
+| -------------- | -------: | --------: | -----: | -------: | ------------: |
+| Custom CNN     |      TBD |       TBD |    TBD |      TBD |           TBD |
+| ResNet50       |      TBD |       TBD |    TBD |      TBD |           TBD |
+| MobileNet      |      TBD |       TBD |    TBD |      TBD |           TBD |
+| EfficientNetB0 |      TBD |       TBD |    TBD |      TBD |           TBD |
+
+### Object Detection Results
+
+| Model  | mAP | Precision | Recall |
+| ------ | --: | --------: | -----: |
+| YOLOv8 | TBD |       TBD |    TBD |
+
+**Replace the `TBD` values with the actual results obtained during training and evaluation.**
+
+## 🔮 Future Scope
+
+Potential extensions based on the project's classification/detection direction include:
+
+* Real-time aerial video analysis
+* Automated drone alerts
+* Improved object localization
+* Deployment on edge devices
+* Integration with surveillance systems
+* Expansion to additional aerial object classes
+
+These are possible extensions rather than documented project requirements.
+
+## ⏱️ Timeline
+
+The project document specifies a completion timeline of **10 days from the date of assignment**.
+
+## 👥 Project Credits
+
+**Created by:** Nilofer Mubeen
+**Verified by:** Shadiya Nehlath
+**Approved by:** Harmain
+
+## 📄 Project Reference
+
+This README is based on the provided project specification for **Aerial Object Classification & Detection**.
+
 ---
 
-# 📈 Future Improvements
-
-- Deploy on Streamlit Community Cloud
-- Deploy using Render
-- Add Feature Selection Techniques
-- Integrate Geospatial Visualization
-- Compare with Deep Learning Models
-- Improve User Interface
-
----
-
-# 📚 Skills Demonstrated
-
-- Data Cleaning
-- Exploratory Data Analysis
-- Feature Engineering
-- Classification Algorithms
-- Model Evaluation
-- Hyperparameter Tuning
-- Class Imbalance Handling
-- Streamlit Deployment
-- Machine Learning Pipeline Development
-
----
-
-# 👩‍💻 Author
-
-**Aparna V**
-
-Aspiring Data Analyst | Python | SQL | Power BI | Machine Learning
-
----
-
-## ⭐ If you found this project useful, don't forget to Star the repository!
+⭐ If this project is useful, consider giving the repository a star!
